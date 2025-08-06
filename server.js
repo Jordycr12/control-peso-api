@@ -9,9 +9,10 @@ const PORT = process.env.PORT || 3000;
 // CORS Config
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
+
 
 app.use(express.json());
 app.use('/api', registrosRoutes);
@@ -25,3 +26,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+
