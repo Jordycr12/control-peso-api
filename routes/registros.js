@@ -18,9 +18,8 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
-    // Quita temporalmente el ssl: { ca: caCert }
+    // ssl: { ca: caCert } // Puedes descomentar si lo necesitas de nuevo
 });
-
 
 // Ruta POST para guardar registros
 router.post('/guardar', (req, res) => {
@@ -39,5 +38,17 @@ router.post('/guardar', (req, res) => {
     });
 });
 
-module.exports = router;
+// Ruta GET para obtener registros
+router.get('/registros', (req, res) => {
+    const query = 'SELECT * FROM registros ORDER BY id DESC';
 
+    pool.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener registros:', err);
+            return res.status(500).json({ error: 'Error al obtener registros' });
+        }
+        res.json(results);
+    });
+});
+
+module.exports = router;
