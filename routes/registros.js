@@ -17,11 +17,10 @@ const pool = mysql.createPool({
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    ssl: {
-        ca: caCert
-    }
+    database: process.env.DB_NAME
+    // Quita temporalmente el ssl: { ca: caCert }
 });
+
 
 // Ruta POST para guardar registros
 router.post('/guardar', (req, res) => {
@@ -41,3 +40,4 @@ router.post('/guardar', (req, res) => {
 });
 
 module.exports = router;
+
