@@ -6,9 +6,17 @@ const registrosRoutes = require('./routes/registros');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors()); // <----- AQUI ACTIVAS CORS PARA TODOS LOS DOMINIOS
+// CORS Config
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json());
 app.use('/api', registrosRoutes);
+
+app.options('*', cors()); // <-- Esto responderá a las preflight requests (OPTIONS)
 
 app.get('/', (req, res) => {
     res.send('API Control de Peso funcionando.');
